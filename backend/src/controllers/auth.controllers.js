@@ -2,10 +2,10 @@ import userModel from "../models/user.model";
 import generateAuthToken from "../utils/generateAuthToken";
 
 export const registerUserController = async (req, res, next) => {
-  if (!email || !fullname || !contact || !password || !role) {
+  if (!email || !fullname || !contact || !password || !isSeller) {
     return res.status(400).json({ message: "All fields are required" });
   }
-  const { email, fullname, contact, password, role } = req.body;
+  const { email, fullname, contact, password, isSeller } = req.body;
 
   try {
     const isUserExist = await userModel.findOne($or([{ email }, { contact }]));
@@ -15,25 +15,15 @@ export const registerUserController = async (req, res, next) => {
         .json({ message: "User already exist with this email or contact" });
     }
 
-    const User = await userModel.create({
+    const user = await userModel.create({
       email,
       fullname,
       contact,
       password,
-      role,
-    });
-    const token = await generateAuthToken(User);
-
-    res.cookie("token", token, {
-      httpOnly: true,
-      secure: process.env.NODE_ENV === "production",
-      sameSite: "strict",
-      maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
+      role: isSeller ? "seller" : "buyer",
     });
 
-    res
-      .status(201)
-      .json({ message: "User registered successfully", user: User, token });
+    await generateAuthToken(user, res, "user registered successfully");
   } catch (error) {
     res.status(500).json({ message: "Error registering user", error });
   }

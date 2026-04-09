@@ -1,12 +1,12 @@
 import express, { urlencoded } from "express";
-import authRouter from "./routers/auth.routes.js";
+import authRouter from "./routes/auth.routes.js";
 import cookieParser from "cookie-parser";
 
 const app = express();
 
 // middlewares
 app.use(express.json())
-app.use(urlencoded({extended: true}))
+app.use(express.urlencoded({extended: true}))
 app.use(cookieParser())
 
 // api endpoints
