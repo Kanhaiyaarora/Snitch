@@ -1,5 +1,5 @@
-import userModel from "../models/user.model";
-import generateAuthToken from "../utils/generateAuthToken";
+import userModel from "../models/user.model.js";
+import generateAuthToken from "../utils/generateAuthToken.js";
 
 export const registerUserController = async (req, res, next) => {
   if (!email || !fullname || !contact || !password || !isSeller) {
@@ -28,3 +28,27 @@ export const registerUserController = async (req, res, next) => {
     res.status(500).json({ message: "Error registering user", error });
   }
 };
+
+export const loginUserController = async (req, res, next) => {
+  const { email, password } = req.body;
+  try {
+    const user = await userModel.findOne({ email });
+    if (!user) {
+      return res.status(400).json({ message: "Invalid email or password" });
+    }
+
+const isPasswordMatched = await user.comparePassword(password);
+
+if(!isPasswordMatched){
+    return res.status(400).json({ message: "Invalid email or password" });
+}
+
+    await generateAuthToken(user, res, "user logged in successfully");
+
+  } catch (error) {
+    res.status(500).json({ message: "Error logging in user", error });
+  }
+};
+
+
+
