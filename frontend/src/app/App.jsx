@@ -1,13 +1,14 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { RouterProvider } from 'react-router'
 import { router } from './app.routes'
+import './App.css'
 
 const App = () => {
+
   return (
-    <div>
       <RouterProvider router={router}></RouterProvider>
-    </div>
   )
 }
 
 export default App
+
