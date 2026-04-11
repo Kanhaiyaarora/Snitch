@@ -48,3 +48,8 @@ export const loginUserController = async (req, res, next) => {
     res.status(500).json({ message: "Error logging in user", error });
   }
 };
+
+export const googleAuthController = async (req, res, next) => {
+  console.log(req.user);
+  res.redirect("http://localhost:5173/");
+};
