@@ -2,6 +2,10 @@ import express, { urlencoded } from "express";
 import authRouter from "./routes/auth.routes.js";
 import cookieParser from "cookie-parser";
 import cors from "cors";
+import passport from 'passport';
+import {Strategy as GoogleStrategy} from 'passport-google-oauth20';
+import { CONFIG } from "./config/config.js";
+
 
 const app = express();
 
@@ -9,12 +13,16 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
-app.use(
-  cors({
-    origin: "http://localhost:5173",
-    credentials: true,
-  }),
-);
+app.use(passport.initialize());
+
+// we use proxy in development to avoid CORS issues, so we don't need to enable CORS in the backend. In production, the frontend and backend will be served from the same origin, so CORS is not an issue either. If you want to enable CORS for development, you can uncomment the following code:
+
+// app.use(
+//   cors({
+//     origin: "http://localhost:5173",
+//     credentials: true,
+//   }),
+// );
 
 // api endpoints
 app.use("/api/auth", authRouter);
