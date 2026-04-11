@@ -1,5 +1,7 @@
 import userModel from "../models/user.model.js";
 import generateAuthToken from "../utils/generateAuthToken.js";
+import jwt from "jsonwebtoken";
+import { CONFIG } from "../config/config.js";
 
 export const registerUserController = async (req, res, next) => {
   const { email, fullname, contact, password, isSeller } = req.body;
@@ -50,6 +52,37 @@ export const loginUserController = async (req, res, next) => {
 };
 
 export const googleAuthController = async (req, res, next) => {
-  console.log(req.user);
-  res.redirect("http://localhost:5173/");
+  const { id, displayName, emails, photos } = req.user;
+  const email = emails[0].value;
+  const profilePic = photos[0].value;
+  try {
+    let user = await userModel.findOne({ email });
+
+    if (!user) {
+      user = await userModel.create({
+        email,
+        fullname: displayName,
+        googleId: id,
+      });
+    }
+    const token = jwt.sign(
+      { id: user._id, email: user.email },
+      CONFIG.JWT_SECRET,
+      {
+        expiresIn: CONFIG.JWT_EXPIRE,
+      },
+    );
+
+    res.cookie("token", token, {
+      httpOnly: true,
+      secure: false,
+      sameSite: "strict",
+      maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
+    });
+
+    res.redirect("http://localhost:5173/");
+  } catch (error) {
+    console.log("google auth error", error);
+    res.redirect("http://localhost:5173/login");
+  }
 };
