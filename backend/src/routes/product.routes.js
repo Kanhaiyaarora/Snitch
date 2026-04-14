@@ -14,8 +14,8 @@ const upload = multer({
 productRouter.post(
   "/",
   authenticateSeller,
-  validateCreateProduct,
   upload.array("images", 7),
+  validateCreateProduct,
   createProduct,
 );
 
