@@ -23,13 +23,11 @@ export const createProduct = async (req, res) => {
       images,
     });
 
-    return res
-      .status(201)
-      .json({
-        message: "Product created successfully",
-        success: true,
-        product,
-      });
+    return res.status(201).json({
+      message: "Product created successfully",
+      success: true,
+      product,
+    });
   } catch (error) {
     console.log(error);
     return res
