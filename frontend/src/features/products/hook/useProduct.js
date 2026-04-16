@@ -6,8 +6,13 @@ export const useProduct = () => {
   const dispatch = useDispatch();
 
   async function handleCreateProduct(formData) {
-    const data = await createProduct(formData);
-    return data.product;
+    try {
+      const data = await createProduct(formData);
+      return data.product;
+    } catch (error) {
+      console.error("Error creating product:", error);
+      throw error;
+    }
   }
 
   async function handleGetSellerProducts() {

@@ -6,7 +6,7 @@ const api = axios.create({
 });
 
 export const createProduct = async (formData) => {
-  const response = api.post("/", { formData });
+  const response = await api.post("/", formData);
   return response.data;
 };
 
