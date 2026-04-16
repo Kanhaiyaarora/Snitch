@@ -2,7 +2,10 @@ import { Router } from "express";
 import multer from "multer";
 import authenticateSeller from "../middlewares/auth.middleware.js";
 import { validateCreateProduct } from "../validators/product.validators.js";
-import { createProduct } from "../controllers/product.controller.js";
+import {
+  createProduct,
+  getSellerProducts,
+} from "../controllers/product.controller.js";
 
 const productRouter = Router();
 
@@ -18,5 +21,7 @@ productRouter.post(
   validateCreateProduct,
   createProduct,
 );
+
+productRouter.get("/seller", authenticateSeller, getSellerProducts);
 
 export default productRouter;

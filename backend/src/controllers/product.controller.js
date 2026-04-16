@@ -35,3 +35,15 @@ export const createProduct = async (req, res) => {
       .json({ message: "Error creating product", success: false, error });
   }
 };
+
+export const getSellerProducts = async (req, res) => {
+  const seller = req.user;
+
+  const products = await productModel.find({ seller: seller._id });
+
+  res.status(200).json({
+    message: "Products fetched successfully by seller.",
+    success: true,
+    products,
+  });
+};
