@@ -5,20 +5,16 @@ const userSchema = new mongoose.Schema({
   email: {
     type: String,
     required: true,
-    trim: true,
     unique: true,
     lowercase: true,
   },
   fullname: {
     type: String,
     required: true,
-    trim: true,
   },
   contact: {
     type: String,
     required: false,
-    trim: true,
-    unique: true,
   },
   password: {
     type: String,
@@ -33,8 +29,6 @@ const userSchema = new mongoose.Schema({
   },
   googleId: {
     type: String,
-    unique: true,
-    required: false,
   },
 });
 

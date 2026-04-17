@@ -41,6 +41,6 @@ authRouter.get(
 authRouter.post("/logout", logoutUserController);
 
 // complete route /api/auth/me
-authRouter.get("/me",authenticateUser, getMeController);
+authRouter.get("/me", authenticateUser, getMeController);
 
 export default authRouter;
