@@ -4,6 +4,7 @@ import { authenticateSeller } from "../middlewares/auth.middleware.js";
 import { validateCreateProduct } from "../validators/product.validators.js";
 import {
   createProduct,
+  getAllProducts,
   getSellerProducts,
 } from "../controllers/product.controller.js";
 
@@ -23,5 +24,7 @@ productRouter.post(
 );
 
 productRouter.get("/seller", authenticateSeller, getSellerProducts);
+
+productRouter.get("/", getAllProducts);
 
 export default productRouter;
