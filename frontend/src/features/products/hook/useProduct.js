@@ -16,9 +16,14 @@ export const useProduct = () => {
   }
 
   async function handleGetSellerProducts() {
-    const data = await getSellerProducts();
-    dispatch(setSellerProducts(data.products));
-    return data.products
+    try {
+      const data = await getSellerProducts();
+      dispatch(setSellerProducts(data.products));
+      return data.products;
+    } catch (error) {
+      console.error("Error fetching seller products:", error);
+      throw error;
+    }
   }
 
   return { handleCreateProduct, handleGetSellerProducts };

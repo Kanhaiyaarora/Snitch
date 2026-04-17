@@ -87,7 +87,7 @@ const CreateProduct = () => {
 
     try {
       await handleCreateProduct(data);
-      navigate("/");
+      navigate("/seller/dashboard");
     } catch (error) {
       alert("Failed to create product");
       console.log("Failed to create product due to this error:", error);

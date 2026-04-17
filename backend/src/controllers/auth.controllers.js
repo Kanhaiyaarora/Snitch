@@ -86,3 +86,12 @@ export const googleAuthController = async (req, res, next) => {
     res.redirect("http://localhost:5173/login");
   }
 };
+
+export const logoutUserController = async (req, res, next) => {
+  res.clearCookie("token", {
+    httpOnly: true,
+    secure: false,
+    sameSite: "strict",
+  });
+  res.status(200).json({ message: "User logged out successfully" });
+};

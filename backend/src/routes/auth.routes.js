@@ -18,4 +18,7 @@ authRouter.get("/google", passport.authenticate('google', { scope: ['profile', '
 // complete route /api/auth/google/callback
 authRouter.get("/google/callback", passport.authenticate('google',{session: false, failureRedirect: '/login'}),googleAuthController )
 
+// complete route /api/auth/logout
+authRouter.post("/logout",)
+
 export default authRouter;

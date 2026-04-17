@@ -11,6 +11,6 @@ export const createProduct = async (formData) => {
 };
 
 export const getSellerProducts = async () => {
-  const response = api.get("/seller");
+  const response = await api.get("/seller");
   return response.data;
 };
