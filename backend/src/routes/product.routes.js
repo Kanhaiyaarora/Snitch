@@ -1,6 +1,6 @@
 import { Router } from "express";
 import multer from "multer";
-import authenticateSeller from "../middlewares/auth.middleware.js";
+import { authenticateSeller } from "../middlewares/auth.middleware.js";
 import { validateCreateProduct } from "../validators/product.validators.js";
 import {
   createProduct,

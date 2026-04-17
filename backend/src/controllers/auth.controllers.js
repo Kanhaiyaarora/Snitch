@@ -95,3 +95,22 @@ export const logoutUserController = async (req, res, next) => {
   });
   res.status(200).json({ message: "User logged out successfully" });
 };
+
+export const getMeController = async (req, res, next) => {
+  try {
+    const user = req.user;
+    res.status(200).json({
+      message: "User details fetched successfully",
+      success: true,
+      user: {
+        id: user._id,
+        email: user.email,
+        contact: user.contact,
+        fullname: user.fullname,
+        role: user.role,
+      },
+    });
+  } catch (error) {
+    res.status(500).json({ message: "Error fetching user details", error });
+  }
+};
