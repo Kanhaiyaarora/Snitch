@@ -14,3 +14,13 @@ export const getSellerProducts = async () => {
   const response = await api.get("/seller");
   return response.data;
 };
+
+export const getAllProducts = async () => {
+  try {
+    const response = await api.get("/");
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching all products:", error);
+    throw error;
+  }
+};
