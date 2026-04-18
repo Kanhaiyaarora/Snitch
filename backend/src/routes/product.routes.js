@@ -5,6 +5,7 @@ import { validateCreateProduct } from "../validators/product.validators.js";
 import {
   createProduct,
   getAllProducts,
+  getProductDetails,
   getSellerProducts,
 } from "../controllers/product.controller.js";
 
@@ -26,5 +27,8 @@ productRouter.post(
 productRouter.get("/seller", authenticateSeller, getSellerProducts);
 
 productRouter.get("/", getAllProducts);
+
+// complete route /api/products/detail/:productId
+productRouter.get("/detail/:productId", getProductDetails)
 
 export default productRouter;
