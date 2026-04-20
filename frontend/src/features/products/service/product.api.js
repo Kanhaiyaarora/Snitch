@@ -34,3 +34,21 @@ export const getProductById = async (productId) => {
     throw error;
   }
 }
+
+export const addProductVariants = async (productId, newProductVariant) => {
+  try {
+const formData = new FormData();
+newProductVariant.images.forEach((image) => {
+  formData.append("images", image.file);
+});
+formData.append("stock", newProductVariant.stock);
+formData.append("amount", newProductVariant.price.amount);
+formData.append("attributes", JSON.stringify(newProductVariant.attributes));
+
+    const response = await api.post(`/${productId}/variants`, formData);
+    return response.data;
+  } catch (error) {
+    console.error("Error adding product variants:", error);
+    throw error;
+  }
+}

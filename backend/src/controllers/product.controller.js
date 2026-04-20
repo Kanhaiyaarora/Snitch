@@ -75,3 +75,47 @@ export const getProductDetails = async (req, res) => {
     product,
   });
 };
+
+export const addProductVariants = async (req, res) => {
+  const { productId } = req.params;
+  const product = await productModel.findOne({
+    _id: productId,
+    seller: req.user._id,
+  });
+
+  if (!product) {
+    return res.status(404).json({
+      message: "Product not found",
+      success: false,
+    });
+  }
+
+  const files = req.files;
+  const images = [];
+
+  if (files && files.length > 0) {
+    await Promise.all(
+      files.map(async (file) => {
+        const image = await uploadImage({
+          buffer: file.buffer,
+          fileName: file.originalname,
+        });
+        return images.push(image);
+      }),
+    );
+  }
+
+  const price = req.body.amount;
+  const stock = req.body.stock;
+  const attributes = JSON.parse(req.body.attributes || "{}");
+
+  product.variants.push({
+    price: {
+      currency: req.body.currency ?? product.price.currency,
+      amount: price ?? product.price.amount,
+    },
+    stock: stock ?? 0,
+    attributes,
+    images,
+  });
+};

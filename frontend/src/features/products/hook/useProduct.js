@@ -1,5 +1,6 @@
 import { setProducts, setSellerProducts } from "../state/product.slice";
 import {
+  addProductVariants,
   createProduct,
   getAllProducts,
   getProductById,
@@ -42,5 +43,16 @@ export const useProduct = () => {
     return data.product;
   }
 
-  return { handleCreateProduct, handleGetSellerProducts, handleGetAllProducts, handleGetProductById };
+  async function handleAddProductVariants(productId, newProductVariant) {
+    try {
+      const data = await addProductVariants(productId, newProductVariant);
+      return data.product;
+    } catch (error) {
+      console.error("Error adding product variants:", error);
+      throw error;
+    }
+  }
+
+
+  return { handleCreateProduct, handleGetSellerProducts, handleGetAllProducts, handleGetProductById, handleAddProductVariants };
 };

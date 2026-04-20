@@ -3,6 +3,7 @@ import multer from "multer";
 import { authenticateSeller } from "../middlewares/auth.middleware.js";
 import { validateCreateProduct } from "../validators/product.validators.js";
 import {
+  addProductVariants,
   createProduct,
   getAllProducts,
   getProductDetails,
@@ -16,6 +17,8 @@ const upload = multer({
   limits: { fileSize: 10 * 1024 * 1024 },
 }); // 10 MB file size limit
 
+// complete route /api/products
+
 productRouter.post(
   "/",
   authenticateSeller,
@@ -24,11 +27,21 @@ productRouter.post(
   createProduct,
 );
 
+// get all products listed by seller
 productRouter.get("/seller", authenticateSeller, getSellerProducts);
 
+// get all products for customers
 productRouter.get("/", getAllProducts);
 
-// complete route /api/products/detail/:productId
-productRouter.get("/detail/:productId", getProductDetails)
+// get specific product details for customers
+productRouter.get("/detail/:productId", getProductDetails);
+
+// add variants to existing product
+productRouter.post(
+  "/:productId/variants",
+  authenticateSeller,
+  upload.array("images", 7),
+  addProductVariants,
+);
 
 export default productRouter;
