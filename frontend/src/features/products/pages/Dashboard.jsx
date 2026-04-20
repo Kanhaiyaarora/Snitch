@@ -184,7 +184,7 @@ const Dashboard = () => {
                       <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-all duration-500 flex flex-col justify-end p-8">
                         <p className="text-[10px] uppercase tracking-widest font-bold text-gray-400 mb-2 truncate">{product.description}</p>
                         <Link
-                          to={`/seller/edit-product/${product._id}`}
+                          to={`/seller/product/${product._id}`}
                           className="text-xs font-black uppercase tracking-widest border-b border-white inline-block w-fit pb-1"
                         >
                           Modify Entry
