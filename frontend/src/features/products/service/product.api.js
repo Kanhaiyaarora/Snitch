@@ -52,3 +52,13 @@ formData.append("attributes", JSON.stringify(newProductVariant.attributes));
     throw error;
   }
 }
+
+export const updateVariantStock = async (productId, variantId, stock) => {
+  try {
+    const response = await api.patch(`/${productId}/variants/${variantId}/stock`, { stock });
+    return response.data;
+  } catch (error) {
+    console.error("Error updating variant stock:", error);
+    throw error;
+  }
+}

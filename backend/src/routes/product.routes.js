@@ -8,6 +8,7 @@ import {
   getAllProducts,
   getProductDetails,
   getSellerProducts,
+  updateVariantStock,
 } from "../controllers/product.controller.js";
 
 const productRouter = Router();
@@ -42,6 +43,13 @@ productRouter.post(
   authenticateSeller,
   upload.array("images", 7),
   addProductVariants,
+);
+
+// update variant stock
+productRouter.patch(
+  "/:productId/variants/:variantId/stock",
+  authenticateSeller,
+  updateVariantStock,
 );
 
 export default productRouter;

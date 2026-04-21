@@ -5,6 +5,7 @@ import {
   getAllProducts,
   getProductById,
   getSellerProducts,
+  updateVariantStock,
 } from "../service/product.api";
 import { useDispatch } from "react-redux";
 
@@ -53,6 +54,22 @@ export const useProduct = () => {
     }
   }
 
+  async function handleUpdateVariantStock(productId, variantId, stock) {
+    try {
+      const data = await updateVariantStock(productId, variantId, stock);
+      return data.product;
+    } catch (error) {
+      console.error("Error updating variant stock:", error);
+      throw error;
+    }
+  }
 
-  return { handleCreateProduct, handleGetSellerProducts, handleGetAllProducts, handleGetProductById, handleAddProductVariants };
+  return { 
+    handleCreateProduct, 
+    handleGetSellerProducts, 
+    handleGetAllProducts, 
+    handleGetProductById, 
+    handleAddProductVariants,
+    handleUpdateVariantStock
+  };
 };

@@ -118,4 +118,44 @@ export const addProductVariants = async (req, res) => {
     attributes,
     images,
   });
+
+  await product.save();
+
+  return res.status(200).json({
+    message: "Variant added successfully",
+    success: true,
+    product,
+  });
+};
+
+export const updateVariantStock = async (req, res) => {
+  const { productId, variantId } = req.params;
+  const { stock } = req.body;
+
+  try {
+    const product = await productModel.findOne({
+      _id: productId,
+      seller: req.user._id,
+    });
+
+    if (!product) {
+      return res.status(404).json({ message: "Product not found", success: false });
+    }
+
+    const variant = product.variants.id(variantId);
+    if (!variant) {
+      return res.status(404).json({ message: "Variant not found", success: false });
+    }
+
+    variant.stock = stock;
+    await product.save();
+
+    return res.status(200).json({
+      message: "Stock updated successfully",
+      success: true,
+      product,
+    });
+  } catch (error) {
+    return res.status(500).json({ message: "Error updating stock", success: false, error });
+  }
 };
