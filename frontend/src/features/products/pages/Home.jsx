@@ -24,6 +24,9 @@ const Home = () => {
   const [isNavScrolled, setIsNavScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
+  const cartItems = useSelector(state => state.cart.items);
+
+
   const heroRef = useRef(null);
   const textRef = useRef(null);
   const imageRef = useRef(null);
@@ -65,6 +68,8 @@ const Home = () => {
     };
   }, []);
 
+
+
   return (
     <div className="min-h-screen bg-[#070707] text-white font-sans selection:bg-white selection:text-black">
       {/* Buyer-Centric Navbar */}
@@ -97,7 +102,7 @@ const Home = () => {
             </Link>
             <button className="relative group p-2">
               <ShoppingBag className="w-5 h-5 text-white" />
-              <span className="absolute top-0 right-0 bg-white text-black text-[9px] font-black w-4 h-4 flex items-center justify-center rounded-full">0</span>
+              <span className="absolute top-0 right-0 bg-white text-black text-[9px] font-black w-4 h-4 flex items-center justify-center rounded-full">{cartItems.length}</span>
             </button>
             <button className="lg:hidden" onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}>
               {isMobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}

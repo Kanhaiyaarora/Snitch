@@ -203,8 +203,8 @@ const ProductDetail = () => {
                       key={val}
                       onClick={() => handleAttributeSelect(key, val)}
                       className={`min-w-[4rem] h-12 px-6 text-[10px] font-black uppercase tracking-widest transition-all border ${selectedAttributes[key] === val
-                          ? "bg-white text-black border-white"
-                          : "border-white/10 text-white/40 hover:border-white/40 hover:text-white"
+                        ? "bg-white text-black border-white"
+                        : "border-white/10 text-white/40 hover:border-white/40 hover:text-white"
                         }`}
                     >
                       {val}
@@ -246,7 +246,7 @@ const ProductDetail = () => {
                 Buy Now
                 <ChevronRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
               </button>
-              <button 
+              <button
                 onClick={onAddToCart}
                 disabled={displayStock === 0}
                 className="h-14 bg-transparent border border-white/20 text-white/60 text-[10px] font-black uppercase tracking-[0.3em] transition-all hover:bg-white/5 hover:text-white hover:border-white disabled:opacity-20 disabled:cursor-not-allowed"

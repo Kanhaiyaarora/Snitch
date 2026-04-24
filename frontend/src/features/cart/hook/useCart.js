@@ -7,7 +7,7 @@ export const useCart = () => {
 
   async function handleAddItem({ productId, variantId }) {
     const data = await addItemApi({ productId, variantId });
-    dispatch(addItem(data.item));
+    dispatch(addItem(data.cart.item));
     return data;
   }
 
