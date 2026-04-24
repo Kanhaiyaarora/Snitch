@@ -69,19 +69,18 @@ export const addToCart = async (req, res) => {
       return res.status(200).json({
         message: "Cart updated successfully",
         success: true,
+        cart,
       });
     }
 
     // check stock of the variant
     if (quantity > stock) {
-      return res
-        .status(400)
-        .json({
-          message:
-            "Insufficient stock for the requested quantity. We only have " +
-            stock +
-            " items left.",
-        });
+      return res.status(400).json({
+        message:
+          "Insufficient stock for the requested quantity. We only have " +
+          stock +
+          " items left.",
+      });
     }
     // If the product variant is not in the cart, add it as a new item
     cart.items.push({
@@ -97,7 +96,7 @@ export const addToCart = async (req, res) => {
       .status(200)
       .json({ message: "Product added to cart successfully", cart });
   } catch (error) {
-    res.status(500).json({ message: "Error adding to cart" });
+    res.status(500).json({ message: "Error adding to cart", error });
   }
 };
 
