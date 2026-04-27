@@ -106,8 +106,8 @@ export const getCart = async (req, res) => {
   try {
     const cart = await cartModel
       .findOne({ user: userId })
-      .populate("items.product")
-      .populate("items.variant");
+      .populate("items.product");
+
     if (!cart) {
       cart = await cartModel.create({ user: userId, items: [] });
     }
@@ -116,6 +116,6 @@ export const getCart = async (req, res) => {
       .status(200)
       .json({ message: "Cart fetched successfully", success: true, cart });
   } catch (error) {
-    res.status(500).json({ message: "Error fetching cart" });
+    res.status(500).json({ message: "Error fetching cart:", error });
   }
 };
